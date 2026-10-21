@@ -19,6 +19,19 @@ class GestorIncidencias {
         .toList();
   }
 
+  static const estados = ['Pendiente', 'En proceso', 'Resuelta'];
+  static const todosLosEstados = 'Todos';
+  static const todasLasPrioridades = 'Todas';
+
+  // Aplica a la vez el texto, el estado y la prioridad. 'Todos' / 'Todas'
+  // significan que ese filtro no está activo.
+  List<Incidencia> filtrar(String texto, String estado, String prioridad) {
+    return buscar(texto)
+        .where((x) => estado == todosLosEstados || x.estado == estado)
+        .where((x) => prioridad == todasLasPrioridades || x.prioridad == prioridad)
+        .toList();
+  }
+
   Incidencia? porId(String id) {
     for (var x in incidencias) {
       if (x.id == id) return x;
